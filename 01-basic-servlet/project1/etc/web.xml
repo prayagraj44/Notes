@@ -1,0 +1,28 @@
+<web-app>
+
+<!-- 
+1. The servlet class xyz.class(Actual class name) is mapped to servlet name(can be anything)
+2. the uri(can be anything) is mapped to servlet name that is decalred in above step.
+3. this file goes in WEB-INF dir
+ -->
+
+
+<servlet>
+<!-- name of the servlet to uniquely identify it -->
+<servlet-name>Chapter1 Servlet</servlet-name>
+<!-- Actual 
+class name of servlet no need to mention fqdn as 
+container(tomcat has a place where it searches for all 
+servlets
+) -->
+<servlet-class>Ch1Servlet</servlet-class> 
+</servlet>
+
+
+<servlet-mapping>
+<!-- name of servlet that we decalre in <servlet> -->
+<servlet-name>Chapter1 Servlet</servlet-name>
+<!-- url that user will hit to and see  -->
+<url-pattern>/serv1</url-pattern>
+</servlet-mapping>
+</web-app>
