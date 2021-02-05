@@ -1,0 +1,358 @@
+*Angular Cli
+
+#ng new application_name
+create new application using angular
+
+#ng serve
+To build and run application it will
+autoreload page if some changes are made 
+
+
+#ng lint
+linting is checking code for coding standard
+you define standard/rules in tslint.json
+
+#ng build
+when you run ng build it will create new dist folderin
+your project which gives you a build to deploy
+
+#ng test
+runs the unit test written for angular application
+unit test are written in framework called jasmine
+and u use karma to run unit cases.
+In frontend language test are called specificationstest file typically is .spec.ts
+
+#ng e2e
+launch entire application and run test around it all the test 
+are present in e2e folderin
+________________________________________________________________________________________________________________
+*project structure
+
+angular.json>defines what should happen when we run commands.
+app >where all angular will go here.
+asset > where images go or content that needs to 
+		be rendered as it is
+
+enviorment > all the configuration for enviorments goes here
+
+tsconfig.json
+typescript needs to be converted in javascript
+
+package.json
+dependencies framework tools it is like pom.xml
+________________________________________________________________________________________________________________
+Decorator 
+similar to annotations in java
+to indicate something is component
+@Component({
+selector:"app-root"
+templatUrl:"./app.component.html"}
+styleUrls:"./app.component.css
+)
+________________________________________________________________________________________________________________
+Interpolation
+{{}}
+
+->Any Styles applied to a component is limited to that component.
+________________________________________________________________________________________________________________
+*Components:
+
+Template html .component.html
+Style css .component.css
+Code typescript .component.ts
+
+*Creating new component
+#ng generate component name-of-component
+->there is no roll back after creating
+->it will add component in file names
+->and genrate all html css ts spec components and will update app.module.ts
+->Every angular Component(@Component)has to be asscociated with an angular Module(@NgModule)
+________________________________________________________________________________________________________________
+*Language Variation with java & javascript
+
+package/module
+JAVA: In java we write package and group them in packages.
+JAVASCRIPT: In javascript we write classes and all the classes in single file 
+			are considered part of module.
+			(one file per module and one module per file )
+
+import
+JAVA: import java.sql.*;
+JAVASCRIPT: import {WelcomeComponent} from "module/path";
+
+class
+JAVA: public class Welcome implements Thread
+JAVASCRIPT: export class WelcomeComponent implements OnInit
+
+access modifier
+JAVA:public
+JAVASCRIPT:export
+
+constructor
+JAVA:public ClassName {}
+JAVASCRIPT: constructor(){} //use keyword constructor not class name-of-component
+
+method/function
+JAVA : void init();
+JAVASCRIPT: ngOnInit(){};
+TYPESCRIPT: ngOnInit: void{};
+
+member variable
+
+JAVA:String message = "something"
+JAVASCRIPT : message = "somting" 
+TYPESCRIPT : message:string= "something"
+
+Decorator/Annotations
+
+JAVA:@ComponentScan(value ="package.name")
+TYPESCRIPT:@Component({
+selector:"app-name"
+templatUrl:".path/to/html"
+styleUrls:"path/to/css"
+})
+________________________________________________________________________________________________________________
+*DATA BINDING
+>interpolation {{}}
+
+>Event Binding 
+ 
+ (event)=whatshouldYouDo();
+
+ex: <button (click)=handleLogin>Login</login>
+
+> Two way data binding 
+Banana in a box [()]
+ex: [(ngModel)]
+
+________________________________________________________________________________________________________________
+*Directive in html page
+>  *ngIf="toggle"
+>  *ngFor="let todo of todos" //similar to for(Todo todo:todos)
+>  | 
+________________________________________________________________________________________________________________
+*Routing
+In app-routing.module.ts
+
+const routes: Routes = [
+  {path:"login",component:LoginComponent},
+  {path:"",component:LoginComponent},
+  {path:"welcome",component:WelcomeComponent}
+  {path:"**",component:ErrorComponent}
+];
+
+>ActivatedRoute to pick up parameters from request
+{path:"welcome/:name",component:WelcomeComponent}
+      this.name=this.route.snapshot.params["name"];
+
+>** should be last
+________________________________________________________________________________________________________________
+*Dependency Injection
+
+>it is a built-in feature in ngluar
+
+>In angular if you supply a variable to constructor it is by default
+available as member variable for example:
+	
+	JAVA: public class MyClass
+	{
+		String str ;
+		
+		@Autowire
+		public MyClass(String str)
+		{
+			this.str=str
+		}
+	}
+	
+	JAVASCRIPT: export class MyClass
+	{	//automatic
+		constructor(str:String)
+		{
+		}
+		
+		this.router.navigate(["page"]);
+	}
+	
+
+________________________________________________________________________________________________________________	
+*Navigate to different page
+<a routerLink="/pageUrl">click here</a>
+________________________________________________________________________________________________________________
+*Angular Module 
+Angular Module is group of components or directives which are dedicated
+for a speicific purpose and angular module is a fundamental block of reuse 
+in an application. 
+If you want to reuse a component you need to import corresponding module.
+
+JAVASCRIPT module vs Angular module
+>Javascript module is used to group different elements which are present in
+ a single file whereas an Angular module is used to group different angular components
+
+>Angular module has @ngModule annotations/decorator on it.
+
+________________________________________________________________________________________________________________
+*BootStrapping of an Angular Application.
+
+Root Module:whichever module is the one which is first boostrapped in an angular application is called
+			 Root Module.
+			> Once root Module gets initialized AppComponent gets initialized 
+			  (or the component that you bootstrapped to the root module)			
+
+index.html--->main.ts--->RootModule(AppModule)--->AppComponent
+________________________________________________________________________________________________________________
+Quick review
+														Angular Application
+																|
+												 Angular Modules(custom & built-in)
+																|
+														Angular Components
+																|
+															   /|\
+                                            Template(html)  Style(css) Code(typescript) 
+________________________________________________________________________________________________________________	
+*BootStrapp CSS
+BootStrapp is an popular css framework.			
+
+________________________________________________________________________________________________________________
+* Use routerLink instead of href
+	It will not reload page every time you click a link.
+	It will be a single page app.
+	
+________________________________________________________________________________________________________________
+*Service
+
+>whenever you want to create some logic which is common across multiple components you will 
+create a Service.
+
+*creating a service
+
+#ng generate service service_name
+>this will create two file in src but overtime it will be difficult to maintain many services
+so create folder in service and there put all services.
+
+#ng generate service service/service_name
+>this will create a service folder in src.folder and create service class there
+--------------------------------------------------------------
+file:
+
+import { Injectable } from '@angular/core';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class HardcodedAuthenticationService {
+
+  constructor() { }
+}
+--------------------------------------------------------------
+@Injectable decorator/annotations makes a class a service.
+@Injectable make a component available for dependency injection.
+
+________________________________________________________________________________________________________________
+*Session Storage
+
+>It is something that is asscociated with browser window.
+>It allows us to access the sessionStorage Object.
+>It is limited to current browser session. 
+
+ex: sessionStorage.setItem("authenticatedUser",username); 
+	sessionStorage.getItem("authenticatedUser");
+	sessionStorage.removeItem("authenticatedUser");
+
+________________________________________________________________________________________________________________
+*Securing Components using Route Guards
+
+>use a RouteGuardService to activate or deactivate path/route
+
+-------------------------------------------------------------
+file:
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+import { LoginComponent } from './login/login.component';
+import { WelcomeComponent } from './welcome/welcome.component';
+import { ErrorComponent } from './error/error.component';
+import { ListTodosComponent } from './list-todos/list-todos.component';
+import { LogoutComponent } from './logout/logout.component';
+
+const routes: Routes = [
+  {path:"",component:LoginComponent},
+  {path:"login",component:LoginComponent},
+  {path:"welcome/:name",component:WelcomeComponent},
+  {path:"todos",component:ListTodosComponent},
+  {path:"logout",component:LogoutComponent},
+  {path:"**",component:ErrorComponent}
+];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }
+------------------------------------------------------------------------------------
+custom coded Route guard
+
+#ng generate service service/RouteGuard 
+>this will generate below file and implements CanActivate from @angular/router 
+ and implement its canActivate(...) method.
+
+------------------------------------------------------------------------------------
+file:
+import { Injectable } from '@angular/core';
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class RouteGuardService implements CanActivate{
+
+  constructor() { }
+  
+}
+----------------------------------------------------------------------------------------
+file:
+import { Injectable } from '@angular/core';
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { HardcodedAuthenticationService } from './hardcoded-authentication.service';
+import { element } from '@angular/core/src/render3';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class RouteGuardService implements CanActivate {
+
+  constructor(private hardCodedAuthencticationService: HardcodedAuthenticationService) { }
+
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    if (this.hardCodedAuthencticationService.isUserLoggedIn())
+      return true;
+    else return false;
+  }
+}
+------------------------------------------------------------------------------------------
+> Now use RouteGuardService
+
+const routes: Routes = [
+  {path:"",component:LoginComponent},
+  {path:"login",component:LoginComponent},
+  {path:"welcome/:name",component:WelcomeComponent, canActivate:[RouteGuardService]},
+  {path:"todos",component:ListTodosComponent,canActivate:[RouteGuardService]},
+  {path:"logout",component:LogoutComponent,canActivate:[RouteGuardService]},
+  {path:"**",component:ErrorComponent}
+________________________________________________________________________________________________________________
+
+
+
+
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
